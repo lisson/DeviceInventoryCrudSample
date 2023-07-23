@@ -19,8 +19,12 @@ export default function Create() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(request)
         };
-        fetch('http://localhost:3000/SetDevice', requestOptions)
-            .then(response => response.json())
+        const setDeviceAsync = async() => {
+            var response = await fetch('http://localhost:3000/SetDevice', requestOptions)
+            console.log(response)
+            window.location.href = "/"
+        }
+        setDeviceAsync()
     }
     return (
         <div>

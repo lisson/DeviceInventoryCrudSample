@@ -9,8 +9,11 @@ app.use(cors({
     origin: 'http://localhost:3001'
 }));
 
+const logger = require('./logging')
+
 const controller = require('./DeviceController/DeviceController')
 
+logger.info("Starting deviceinventory.")
 
 app.get('/', (req, res) => {
       res.send("")
@@ -20,6 +23,7 @@ app.get('/devices', controller.GetDevices)
 
 app.post('/SetDevice', controller.SetDevice)
 
+app.post('/HideDevice', controller.HideDevice) // No real delete, just hide the row 
 
 app.listen(port, () => {
       console.log(`Example app listening on port ${port}`)

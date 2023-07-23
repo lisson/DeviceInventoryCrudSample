@@ -6,10 +6,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 
 function App() {
+  document.body.style.overflow = "scroll"
   return (
     <Router>
       <div className="main">
-        <h2 className="main-header">Inventory</h2>
+        <h2 className="main-header">Devices</h2>
         <div>
           <Routes>
               <Route exact path='/create' element={<Create />} />

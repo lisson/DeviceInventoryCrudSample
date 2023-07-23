@@ -19,7 +19,20 @@ const SetDevice = (request, response) => {
   setDevice()
 }
 
+const HideDevice = (request, response) => {
+  var queryJson = request.body
+  var queryObject = {}
+  queryObject.d_ID = queryJson.d_ID
+  queryObject.Hidden = true
+  const setDevice = async () => {
+    const result = await db.UpdateDevice(queryObject)
+    response.status(200).json(result)
+  }
+  setDevice()
+}
+
 module.exports = {
   GetDevices,
-  SetDevice
+  SetDevice,
+  HideDevice
 }

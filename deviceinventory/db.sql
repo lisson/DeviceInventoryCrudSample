@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS public."Devices"
     "ManagementPassword" character varying,
     "CustomFields" json,
     "WaitingUsersCount" integer,
-    "WaitingUsernames" json
+    "WaitingUsernames" json,
+    "Hidden" boolean
 )
 
 TABLESPACE pg_default;

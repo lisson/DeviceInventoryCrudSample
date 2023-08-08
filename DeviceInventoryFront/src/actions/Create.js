@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Button, Checkbox, Form } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react'
+import configData from "../config.json"
 
 export default function Create() {
     const [devicename, setDeviceName] = useState('');
     const [deviceIp, setDeviceIp] = useState('');
     const [username, setUsername] = useState('');
     const [managementAddress, setManagementAddress] = useState('');
+    const [comment, setComment] = useState('');
+
     
     const postData = () => {
         var request = {};
@@ -13,6 +16,7 @@ export default function Create() {
         request["IpAddress"] = deviceIp
         request["ManagementAddress"] = managementAddress
         request["Username"] = username
+        request["Comment"] = comment
 
         const requestOptions = {
             method: 'POST',
@@ -20,7 +24,7 @@ export default function Create() {
             body: JSON.stringify(request)
         };
         const setDeviceAsync = async() => {
-            var response = await fetch('http://localhost:3000/SetDevice', requestOptions)
+            var response = await fetch(`${configData.SERVER_URL}/SetDevice`, requestOptions)
             console.log(response)
             window.location.href = "/"
         }
@@ -30,7 +34,7 @@ export default function Create() {
         <div>
             <Form className="create-form">
                 <Form.Field>
-                    <label>Name</label>
+                    <label>Device Name</label>
                     <input placeholder='Device Name' onChange={(e) => setDeviceName(e.target.value)}/>
                 </Form.Field>
                 <Form.Field>
@@ -44,6 +48,10 @@ export default function Create() {
                 <Form.Field>
                     <label>Management Address</label>
                     <input placeholder='ManagementAddress' onChange={(e) => setManagementAddress(e.target.value)}/>
+                </Form.Field>
+                <Form.Field>
+                    <label>Comment</label>
+                    <textarea placeholder='Comment' onChange={(e) => setComment(e.target.value)} rows={4} cols={40}/>
                 </Form.Field>
                 <Button onClick={postData} type='submit'>Save</Button>
             </Form>

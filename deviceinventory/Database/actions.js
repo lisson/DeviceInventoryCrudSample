@@ -12,16 +12,16 @@ const pool = new Pool({
 
 const GetDevices = async () => {
   logger.info("GetDevices")
-  const query = await pool.query('SELECT "d_ID", "Name", "IpAddress", "ManagementAddress", "Username", "CustomFields", "WaitingUsernames", "WaitingUsersCount" FROM "Devices" WHERE "Hidden" = False ORDER BY "d_ID" ASC')
+  const query = await pool.query('SELECT * FROM "Devices" WHERE "Hidden" = False ORDER BY "d_ID" ASC')
   var rows = query.rows
-  logger.info(rows)
+  logger.debug(rows)
   return rows
 }
 
 const SetDevice = async (request) => {
   logger.info("SetDevice")
   logger.info(request)
-  const query = await pool.query('INSERT INTO "Devices" ("Name", "IpAddress", "ManagementAddress", "Username", "Hidden") VALUES ($1, $2, $3, $4, False);', [request.Name, request.IpAddress, request.ManagementAddress, request.Username])
+  const query = await pool.query('INSERT INTO "Devices" ("Name", "IpAddress", "ManagementAddress", "Username", "Hidden", "Comment") VALUES ($1, $2, $3, $4, False, $5);', [request.Name, request.IpAddress, request.ManagementAddress, request.Username, request.Comment])
   logger.debug(query)
   return query.rowCount > 1;
 }

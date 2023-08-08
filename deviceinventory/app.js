@@ -23,7 +23,8 @@ app.get('/devices', controller.GetDevices)
 
 app.post('/SetDevice', controller.SetDevice)
 
-app.post('/HideDevice', controller.HideDevice) // No real delete, just hide the row 
+app.post('/UpdateDevice', controller.UpdateDevice) // No real delete, just hide the row 
+
 
 app.listen(port, () => {
       console.log(`Example app listening on port ${port}`)

@@ -21,9 +21,13 @@ app.get('/', (req, res) => {
 
 app.get('/devices', controller.GetDevices)
 
+app.get('/getdevicesbyname', controller.GetDevicesByName)
+
 app.post('/SetDevice', controller.SetDevice)
 
 app.post('/UpdateDevice', controller.UpdateDevice) // No real delete, just hide the row 
+
+app.post('/ReserveDevice', controller.ReserveDevice)
 
 
 app.listen(port, () => {

@@ -14,6 +14,12 @@ const GetDevices = async () => {
   logger.info("GetDevices")
   const query = await pool.query('SELECT * FROM "Devices" WHERE "Hidden" = False ORDER BY "d_ID" ASC')
   var rows = query.rows
+  return rows
+}
+
+const GetDevicesByName = async (deviceName) => {
+  const query = await pool.query('SELECT * FROM "Devices" WHERE "Name" LIKE %$1% "Hidden" = False ORDER BY "d_ID" ASC', [deviceName])
+  var rows = query.rows
   logger.debug(rows)
   return rows
 }
@@ -83,6 +89,7 @@ function BuildUpdateQuery(request)
 
 module.exports = {
   GetDevices,
+  GetDevicesByName,
   SetDevice,
   UpdateDevice
 }

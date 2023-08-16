@@ -63,7 +63,7 @@ export default function Read() {
                         <th>Name</th>
                         <th>Address</th>
                         <th>Management Address</th>
-                        <th>Owner</th>
+                        <th>In Use By</th>
                         <th>Comment</th>
                         <th>Edit</th>
                     </tr>

@@ -90,7 +90,7 @@ const EditDeviceModal = ({ device, show, onCloseButtonClick, setfetch }) => {
                             <input disabled={InputDisabled} value={formData.IpAddress} placeholder='Device IP' onChange={(e) => formDataHandler({"IpAddress": e.target.value})}/>
                         </Form.Field>
                         <Form.Field>
-                            <label>Owner</label>
+                            <label>In Use By</label>
                             <input disabled={InputDisabled} value={formData.Username} placeholder='Username' onChange={(e) => formDataHandler({"Username": e.target.value})}/>
                         </Form.Field>
                         <Form.Field>

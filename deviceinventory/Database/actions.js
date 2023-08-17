@@ -33,7 +33,7 @@ const SetDevice = async (request) => {
 }
 
 const UpdateDevice = async (request) => {
-  logger.info("ModifyDevice")
+  logger.info("UpdateDevice")
   logger.info(request)
   var updateQuery = BuildUpdateQuery(request)
   logger.debug(`Query: ${updateQuery.query}`)
@@ -70,8 +70,8 @@ function BuildUpdateQuery(request)
   
   for (let [key, value] of Object.entries(request))
   {
-    logger.info(key, value);
-    if(value)
+    logger.info(`${key}, ${value}`);
+    if(value != null)
     {
       result.query = result.query + `"${key}"=$${count},`
       result.values.push(value)

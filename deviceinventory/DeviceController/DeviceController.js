@@ -1,10 +1,18 @@
 const db = require('../Database/actions')
 const DbQuery = require('../Database/query')
+const logger = require('../logging')
 
 const GetDevices = (request, response) => {
     const getrows = async () => {
-      const result = await db.GetDevices()
-      response.status(200).json(result)
+      try
+      {
+        const result = await db.GetDevices()
+        response.status(200).json(result)
+      }
+      catch(error)
+      {
+        logger.error(error)
+      }
     }
     getrows()
 }
@@ -22,8 +30,16 @@ const SetDevice = (request, response) => {
 const UpdateDevice = (request, response) => {
   var queryJson = request.body
   const updateDevice = async () => {
-    const result = await db.UpdateDevice(queryJson)
-    response.status(200).json(result)
+    try
+    {
+      const result = await db.UpdateDevice(queryJson)
+      response.status(200).json(result)
+    }
+    catch(error)
+    {
+      logger.error(error)
+    }
+    
   }
   updateDevice()
 }
@@ -48,11 +64,11 @@ const ReserveDevice = (request, response) => {
     console.log(result[0])
     if(request.body.Name)
     {
-      var device = result.find((d) => d.Name.startsWith(request.body.Name)  && d.Username === "None")
+      var device = result.find((d) => d.Name.startsWith(request.body.Name)  && d.Username === "")
     }
     if(request.body.d_ID)
     {
-      var device = result.find((d) => d.d_ID == request.body.d_ID && d.Username === "None")
+      var device = result.find((d) => d.d_ID == request.body.d_ID && d.Username === "")
     }
     console.log(device)
     if(device)

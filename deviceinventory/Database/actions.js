@@ -18,7 +18,8 @@ const GetDevices = async () => {
 }
 
 const GetDevicesByName = async (deviceName) => {
-  const query = await pool.query('SELECT * FROM "Devices" WHERE "Name" LIKE %$1% "Hidden" = False ORDER BY "d_ID" ASC', [deviceName])
+  logger.debug(`GetDevicesByName ${deviceName}`)
+  const query = await pool.query('SELECT * FROM "Devices" WHERE "Name" LIKE $1 AND "Hidden" = False ORDER BY "d_ID" ASC', [`%${deviceName}%`])
   var rows = query.rows
   logger.debug(rows)
   return rows
@@ -27,7 +28,8 @@ const GetDevicesByName = async (deviceName) => {
 const SetDevice = async (request) => {
   logger.info("SetDevice")
   logger.info(request)
-  const query = await pool.query('INSERT INTO "Devices" ("Name", "IpAddress", "ManagementAddress", "Username", "Hidden", "Comment") VALUES ($1, $2, $3, $4, False, $5);', [request.Name, request.IpAddress, request.ManagementAddress, request.Username, request.Comment])
+  var queryString = BuildInsertQuery(request)
+  const query = await pool.query(queryString.query, queryString.values)
   logger.debug(query)
   return query.rowCount > 1;
 }
@@ -84,6 +86,45 @@ function BuildUpdateQuery(request)
     result.query = `UPDATE "Devices" SET ${result.query.slice(0,-1)} WHERE "d_ID" = $1;`
   }
 
+  return result
+}
+
+function BuildInsertQuery(request)
+{
+  if(request.Name == null)
+  {
+    logger.error("Device name is required.")
+    return null
+  }
+
+  // const query = await pool.query('INSERT INTO "Devices" ("Name", "IpAddress", "ManagementAddress", "Username", "Hidden", "Comment") VALUES ($1, $2, $3, $4, False, $5);', [request.Name, request.IpAddress, request.ManagementAddress, request.Username, request.Comment])
+  var result = {};
+  var count = 1
+  var columns = []
+  var valuesColumns = []
+  result.query = ""
+  result.values = []
+  
+  for (let [key, value] of Object.entries(request))
+  {
+    logger.info(key)
+    if(value != null)
+    {
+      valuesColumns.push(`$${count}`)
+      columns.push(`"${key}"`)
+      result.values.push(value)
+      count++
+    }
+  }
+
+  valuesColumns.push(`$${count}`)
+  columns.push("\"Hidden\"")
+  result.values.push(false)
+
+  result.query = `INSERT INTO "Devices" (${columns.join(",")}) VALUES (${valuesColumns.join(",")});`
+  logger.debug(result.query)
+  logger.debug(result.values)
+  
   return result
 }
 

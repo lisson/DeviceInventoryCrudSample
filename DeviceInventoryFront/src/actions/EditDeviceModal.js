@@ -51,7 +51,7 @@ const EditDeviceModal = ({ device, show, onCloseButtonClick, setfetch }) => {
         };
     const setDeviceAsync = async() => {
         setInputDisabled(true)
-        var response = await fetch(`${configData.SERVER_URL}/UpdateDevice`, requestOptions)
+        var response = await fetch(`${configData.SERVER_URL}/update-device`, requestOptions)
         console.debug(response)
         if(response.status == 200)
         {

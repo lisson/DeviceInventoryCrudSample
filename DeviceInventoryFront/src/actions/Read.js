@@ -14,7 +14,7 @@ export default function Read() {
     useEffect(() => {
         const fetchData = async () => {
             console.log("fetching")
-            const response = await fetch(`${configData.SERVER_URL}/devices`)
+            const response = await fetch(`${configData.SERVER_URL}/get-devices`)
             const data = await response.json()
             setData(data)
         }

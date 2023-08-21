@@ -19,15 +19,17 @@ app.get('/', (req, res) => {
       res.send("")
 })
 
-app.get('/devices', controller.GetDevices)
+app.get('/get-devices', controller.GetDevices)
 
-app.get('/getdevicesbyname', controller.GetDevicesByName)
+app.get('/get-devices-by-name', controller.GetDevicesByName)
 
-app.post('/SetDevice', controller.SetDevice)
+app.post('/set-device', controller.SetDevice)
 
-app.post('/UpdateDevice', controller.UpdateDevice) // No real delete, just hide the row 
+app.post('/update-device', controller.UpdateDevice) // No real delete, just hide the row 
 
-app.post('/ReserveDevice', controller.ReserveDevice)
+app.post('/reserve-device', controller.ReserveDevice)
+
+app.post('/release-device', controller.ReleaseDevice)
 
 
 app.listen(port, () => {

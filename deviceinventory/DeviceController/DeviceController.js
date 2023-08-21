@@ -69,7 +69,7 @@ const ReserveDevice = (request, response) => {
     if(request.body.d_ID)
     {
       logger.info(`Reserving ${request.body.d_ID}`)
-      var device = result.find((d) => d.d_ID == request.body.d_ID && d.Username)
+      var device = result.find((d) => d.d_ID == request.body.d_ID && !d.Username)
     }
     logger.info(`Reserving ${device}`)
     if(device)
@@ -96,10 +96,10 @@ const ReleaseDevice = (request, response) => {
   }
   const release = async () => {
     var updateRequest = {}
-    updateRequest.d_ID = device.d_ID
+    updateRequest.d_ID = request.body.d_ID
     updateRequest.Username = ""
     await db.UpdateDevice(updateRequest)
-    response.status(200).json(device)
+    response.status(200).send("OK")
   }
   release()
 }

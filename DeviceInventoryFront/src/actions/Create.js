@@ -24,7 +24,7 @@ export default function Create() {
             body: JSON.stringify(request)
         };
         const setDeviceAsync = async() => {
-            var response = await fetch(`${configData.SERVER_URL}/SetDevice`, requestOptions)
+            var response = await fetch(`${configData.SERVER_URL}/set-device`, requestOptions)
             console.log(response)
             window.location.href = "/"
         }

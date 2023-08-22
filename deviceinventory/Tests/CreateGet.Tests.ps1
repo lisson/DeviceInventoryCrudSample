@@ -10,7 +10,7 @@ Describe 'Create Read' {
     It 'Reserves a device' -Tag "Reserve" {
         $query = @{"Name"=$Name; "Username"=$Username}
         $device = Invoke-RestMethod http://localhost:3000/reserve-device -Method POST -Body $($query | ConvertTo-Json) -ContentType "Application/Json"
-        $device.Name | Should -Be $script:Name
+        $device.Name | Should -Be $Name
     }
 
     It 'Releases a device' -Tag "Release" {

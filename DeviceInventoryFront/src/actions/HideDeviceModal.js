@@ -28,7 +28,7 @@ const HideDeviceModal = ({ device, show, onCloseButtonClick, setfetch }) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formData)
         };
-        var response = await fetch(`${configData.SERVER_URL}/UpdateDevice`, requestOptions)
+        var response = await fetch(`${configData.SERVER_URL}/update-device`, requestOptions)
         console.debug(response)
         if(response.status == 200)
         {
